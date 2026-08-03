@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Profile</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header class="topbar">
+
+<div class="logo">
+
+👜 Club Elite 21
+
+<br>
+
+<small>My Profile</small>
+
+</div>
+
+</header>
+
+<main class="container">
+
+<div class="balance-card">
+
+<h3>User Profile</h3>
+
+<h1>👤</h1>
+
+</div>
+
+<div class="product-card">
+
+<p><b>Name:</b> <span id="userName">Loading...</span></p>
+
+<p><b>Email:</b> <span id="userEmail">Loading...</span></p>
+
+<p><b>Balance:</b> <span id="userBalance">$0</span></p>
+
+<p><b>VIP Level:</b> VIP 1</p>
+
+<button class="withdraw-btn" onclick="logout()">
+
+🚪 Logout
+
+</button>
+
+</div>
+<script type="module" src="script.js"></script>
+
+<script>
+
+import {
+getAuth,
+onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+getFirestore,
+doc,
+getDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import { app } from "./script.js";
+
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+onAuthStateChanged(auth, async(user)=>{
+
+if(user){
+
+let snap = await getDoc(doc(db,"users",user.uid));
+
+if(snap.exists()){
+
+let data = snap.data();
+
+document.getElementById("userName").innerText = data.name;
+
+document.getElementById("userEmail").innerText = data.email;
+
+document.getElementById("userBalance").innerText = "$"+data.balance;
+
+}
+
+}else{
+
+window.location.href="index.html";
+
+}
+
+});
+
+</script>
+
+</main>
+
+<nav class="navbar">
+
+<a href="dashboard.html">
+🏠
+<span>Home</span>
+</a>
+
+<a href="recharge.html">
+💳
+<span>Recharge</span>
+</a>
+
+<a href="orders.html">
+📦
+<span>Orders</span>
+</a>
+
+<a href="withdraw.html">
+💰
+<span>Withdraw</span>
+</a>
+
+<a href="profile.html" class="active">
+👤
+<span>Profile</span>
+</a>
+
+</nav>
+
+</body>
+</html>

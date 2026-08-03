@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Orders</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header class="topbar">
+
+<div class="logo">
+
+👜 Club Elite 21
+
+<br>
+
+<small>My Orders</small>
+
+</div>
+
+</header>
+
+<main class="container">
+
+<h2 style="margin-bottom:20px;">
+
+📦 My Orders
+
+</h2>
+
+<div id="ordersList">
+
+No Orders Yet
+
+</div>
+<script>
+
+function loadOrders(){
+
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+let html = "";
+
+if(orders.length === 0){
+
+html = "<h3 style='text-align:center'>No Orders Yet</h3>";
+
+}else{
+
+orders.forEach(function(order){
+
+html += `
+
+<div class="product-card">
+
+<img src="${order.image}" alt="Order">
+
+<div class="product-info">
+
+<h3>${order.name}</h3>
+
+<p>Price : <b>Rs ${order.price}</b></p>
+
+<p style="color:green;">
+Commission : <b>Rs ${order.commission}</b>
+</p>
+
+<p>Status :
+<b style="color:#ff9900;">
+${order.status}
+</b>
+</p>
+
+<p style="font-size:13px;color:#666;">
+${order.date}
+</p>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+document.getElementById("ordersList").innerHTML = html;
+
+}
+
+loadOrders();
+
+</script>
+<a href="dashboard.html">
+
+<button class="support-btn">
+
+⬅ Back to Dashboard
+
+</button>
+
+</a>
+
+</main>
+
+
+<nav class="navbar">
+
+<a href="dashboard.html">
+
+🏠
+
+<span>Home</span>
+
+</a>
+
+<a href="recharge.html">
+
+💳
+
+<span>Recharge</span>
+
+</a>
+
+<a href="orders.html" class="active">
+
+📦
+
+<span>Orders</span>
+
+</a>
+
+<a href="withdraw.html">
+
+💰
+
+<span>Withdraw</span>
+
+</a>
+
+<a href="profile.html">
+
+👤
+
+<span>Profile</span>
+
+</a>
+
+</nav>
+
+</body>
+
+</html>

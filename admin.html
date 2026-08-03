@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Club Elite 21 Admin</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f3f4f6;
+}
+
+.header{
+background:#131921;
+color:#fff;
+text-align:center;
+padding:18px;
+font-size:22px;
+font-weight:bold;
+}
+
+.container{
+padding:15px;
+}
+
+.card{
+background:#fff;
+padding:18px;
+border-radius:12px;
+margin-bottom:20px;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+.card h2{
+margin-bottom:15px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin-bottom:12px;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px;
+}
+
+button{
+width:100%;
+padding:14px;
+background:#ff9900;
+border:none;
+border-radius:8px;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
+}
+
+#taskList .task{
+background:#fff;
+padding:15px;
+border-radius:10px;
+margin-top:15px;
+box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+.task img{
+width:100%;
+height:180px;
+object-fit:cover;
+border-radius:10px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="header">
+⚙ Club Elite 21 Admin Panel
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h2>Add Task</h2>
+
+<input type="file" id="taskImage" accept="image/*">
+
+<input type="text" id="taskName" placeholder="Task Name">
+
+<input type="number" id="taskPrice" placeholder="Task Price">
+
+<input type="number" id="taskCommission" placeholder="Task Commission">
+
+<button id="saveBtn">
+💾 Save Task
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>All Tasks</h2>
+
+<div id="taskList">
+Loading...
+</div>
+
+</div>
+
+</div>
+<script type="module">
+
+import { db } from "./firebase.js";
+
+import {
+collection,
+addDoc,
+getDocs,
+deleteDoc,
+doc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+let imageData = "";
+
+document.getElementById("taskImage").addEventListener("change",(e)=>{
+
+const file=e.target.files[0];
+
+if(!file) return;
+
+const reader=new FileReader();
+
+reader.onload=function(x){
+
+imageData=x.target.result;
+
+};
+
+reader.readAsDataURL(file);
+
+});
+
+document.getElementById("saveBtn").addEventListener("click",saveTask);
+
+async function saveTask(){
+
+const name=document.getElementById("taskName").value.trim();
+
+const price=Number(document.getElementById("taskPrice").value);
+
+const commission=Number(document.getElementById("taskCommission").value);
+
+if(!imageData || !name || price<=0 || commission<=0){
+
+alert("Please fill all fields");
+
+return;
+
+}
+
+try{
+
+await addDoc(collection(db,"tasks"),{
+
+image:imageData,
+name:name,
+price:price,
+commission:commission,
+createdAt:Date.now()
+
+});
+
+alert("Task Saved Successfully");
+
+document.getElementById("taskImage").value="";
+document.getElementById("taskName").value="";
+document.getElementById("taskPrice").value="";
+document.getElementById("taskCommission").value="";
+
+imageData="";
+
+loadTasks();
+
+}catch(err){
+
+alert(err.message);
+
+}
+
+}
+
+async function loadTasks(){
+
+const snap=await getDocs(collection(db,"tasks"));
+
+let html="";
+
+snap.forEach((item)=>{
+
+const task=item.data();
+
+html+=`
+
+<div class="task">
+
+<img src="${task.image}">
+
+<h3>${task.name}</h3>
+
+<p>Price: Rs ${task.price}</p>
+
+<p>Commission: Rs ${task.commission}</p>
+
+<button onclick="deleteTask('${item.id}')">
+Delete
+</button>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("taskList").innerHTML=html||"No Tasks";
+
+}
+
+window.deleteTask=async(id)=>{
+
+await deleteDoc(doc(db,"tasks",id));
+
+loadTasks();
+
+};
+
+loadTasks();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Club Elite 21</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header class="topbar">
+
+<div class="logo">
+
+👜 Club Elite 21
+
+<br>
+
+<small id="welcomeName">
+Welcome
+</small>
+
+</div>
+
+<button class="support-top">
+
+💬 Customer Service
+
+</button>
+
+</header>
+
+
+
+<main class="container">
+
+<div class="balance-card">
+
+<h3>Account Balance</h3>
+
+<h1 id="balance">
+
+$0.00
+
+</h1>
+
+</div>
+
+
+
+<div class="stats">
+
+<div class="box">
+
+<h4>Total Orders</h4>
+
+<span id="orders">0</span>
+
+</div>
+
+<div class="box">
+
+<h4>Total Commission</h4>
+
+<span id="commission">$0</span>
+
+</div>
+
+<div class="box">
+
+<h4>Today's Income</h4>
+
+<span id="todayIncome">$0</span>
+
+</div>
+
+<div class="box">
+
+<h4>VIP Level</h4>
+
+<span>VIP 1</span>
+
+</div>
+
+</div>
+
+
+
+<h2 style="margin:20px 0">
+
+🔥 Available Tasks
+
+</h2>
+
+<div id="taskList">
+
+No Task Available
+
+</div>
+<!-- Action Buttons -->
+
+<a href="withdraw.html">
+
+<button class="withdraw-btn">
+
+💰 Withdraw
+
+</button>
+
+</a>
+
+
+
+<a href="orders.html">
+
+<button class="support-btn">
+
+📦 My Orders
+
+</button>
+
+</a>
+
+
+
+</main>
+
+
+
+
+<!-- Bottom Navigation -->
+
+<nav class="navbar">
+
+<a href="dashboard.html" class="active">
+
+🏠
+
+<span>Home</span>
+
+</a>
+
+
+
+<a href="recharge.html">
+
+💳
+
+<span>Recharge</span>
+
+</a>
+
+
+
+<a href="orders.html">
+
+📦
+
+<span>Orders</span>
+
+</a>
+
+
+
+<a href="withdraw.html">
+
+💰
+
+<span>Withdraw</span>
+
+</a>
+
+
+
+<a href="profile.html">
+
+👤
+
+<span>Profile</span>
+
+</a>
+
+</nav>
+
+
+
+
+<!-- Task Popup -->
+
+<div class="popup" id="popup">
+
+<div class="popup-content">
+
+<h2>Task Details</h2>
+
+<img id="popupImage" src="" alt="Task Image">
+
+<h3 id="popupName">Task Name</h3>
+
+<p>
+
+Task Price:
+<b id="popupPrice">Rs 0</b>
+
+</p>
+
+<p style="color:red;font-weight:bold;" id="requiredBalance">
+
+</p>
+
+<button id="closePopup">
+
+Submit Task
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<script type="module" src="script.js"></script>
+
+<script>
+
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+let selectedTask = null;
+
+</script>
+<script>
+
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+let selectedTask = null;
+
+// ===== LOAD TASKS =====
+
+function loadTasks(){
+
+let html = "";
+
+if(tasks.length === 0){
+
+html = "<h3 style='text-align:center'>No Task Available</h3>";
+
+}else{
+
+tasks.forEach((task,index)=>{
+
+html += `
+
+<div class="product-card">
+
+<img src="${task.image}" alt="Task">
+
+<div class="product-info">
+
+<h3>${task.name}</h3>
+
+<p>Task Price : <b>Rs ${task.reward}</b></p>
+
+<p style="color:green;">
+Commission : <b>Rs ${task.commission || 0}</b>
+</p>
+
+<button class="start-btn"
+onclick="openTask(${index})">
+
+🚀 Start Task
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+document.getElementById("taskList").innerHTML = html;
+
+}
+
+loadTasks();
+
+
+// ===== OPEN TASK =====
+
+window.openTask=function(index){
+
+selectedTask = tasks[index];
+
+let balance =
+parseFloat(
+document.getElementById("balance")
+.innerText.replace("$","")
+) || 0;
+
+let price =
+parseFloat(selectedTask.reward);
+
+if(balance < price){
+
+alert(
+"❌ Insufficient Balance\n\n" +
+"Required Balance : Rs " + price +
+"\nYour Balance : Rs " + balance
+);
+
+return;
+
+}
+
+document.getElementById("popupImage").src = selectedTask.image;
+document.getElementById("popupName").innerText = selectedTask.name;
+document.getElementById("popupPrice").innerText = "Rs " + selectedTask.reward;
+
+document.getElementById("popup").style.display="flex";
+
+};
+
+
+// ===== SUBMIT TASK =====
+
+document.getElementById("closePopup").onclick=function(){
+
+let orders =
+JSON.parse(localStorage.getItem("orders")) || [];
+
+orders.push({
+
+image:selectedTask.image,
+
+name:selectedTask.name,
+
+price:selectedTask.reward,
+
+commission:selectedTask.commission || 0,
+
+status:"Pending",
+
+date:new Date().toLocaleString()
+
+});
+
+localStorage.setItem(
+"orders",
+JSON.stringify(orders)
+);
+
+// Update Total Orders
+
+document.getElementById("orders").innerText = orders.length;
+
+document.getElementById("popup").style.display="none";
+
+alert("✅ Task Submitted Successfully");
+
+};
+
+</script>
+
+</body>
+</html>
