@@ -16,43 +16,21 @@ body{
 }
 .topbar{
  background:linear-gradient(135deg,#10091e,#24103e,#120b20);
- color:#fff;
- padding:22px 18px 28px;
+ color:#fff;padding:22px 18px 28px;
  border-radius:0 0 28px 28px;
  box-shadow:0 7px 22px #160b2d40;
 }
-.top-head{
- display:flex;
- justify-content:space-between;
- align-items:center;
-}
-.logo{
- font-size:21px;
- font-weight:900;
- color:#f5d77d;
-}
-.logo small{
- display:block;
- color:#e8dff4;
- font-size:12px;
- font-weight:normal;
- margin-top:6px;
-}
+.top-head{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:21px;font-weight:900;color:#f5d77d}
+.logo small{display:block;color:#e8dff4;font-size:12px;font-weight:normal;margin-top:6px}
 .support-top{
  background:linear-gradient(135deg,#f8df91,#c99b36);
- border:0;
- padding:10px 13px;
- border-radius:22px;
- color:#241331;
- font-weight:bold;
- font-size:12px;
+ border:0;padding:10px 13px;border-radius:22px;
+ color:#241331;font-weight:bold;font-size:12px;
 }
 .welcome{
- margin-top:25px;
- background:linear-gradient(110deg,#f8e8bd,#fff8e8);
- padding:17px;
- border-radius:18px;
- color:#28153c;
+ margin-top:25px;background:linear-gradient(110deg,#f8e8bd,#fff8e8);
+ padding:17px;border-radius:18px;color:#28153c;
 }
 .welcome h2{font-size:19px;margin-bottom:5px}
 .welcome p{font-size:12px;color:#695b70}
@@ -60,11 +38,8 @@ body{
 .balance-card{
  margin:-1px 15px 20px;
  background:linear-gradient(135deg,#30134e,#160b28,#452064);
- color:white;
- padding:23px 20px;
- border-radius:21px;
- box-shadow:0 9px 22px #24103845;
- border:1px solid #b68a45;
+ color:white;padding:23px 20px;border-radius:21px;
+ box-shadow:0 9px 22px #24103845;border:1px solid #b68a45;
 }
 .balance-card h3{font-size:14px;color:#e8d9f6;font-weight:normal}
 .balance-card h1{color:#f7d77e;font-size:34px;margin:13px 0 20px}
@@ -134,45 +109,49 @@ body{
 }
 .support-btn{background:linear-gradient(135deg,#35164f,#160b28);color:#f5d77d}
 
-/* GOLDEN BOTTOM NAVIGATION */
+/* INDIVIDUAL GOLDEN BOTTOM NAV BOXES */
 .navbar{
  position:fixed;
- bottom:0;left:0;right:0;
+ left:0;right:0;bottom:0;
+ z-index:9999;
  display:flex;
- justify-content:space-around;
  align-items:center;
- gap:5px;
- padding:12px 8px 14px;
+ justify-content:space-between;
+ gap:6px;
+ padding:12px 7px;
  background:linear-gradient(135deg,#160b29,#2b1243);
  border-top:2px solid #d6ad50;
- box-shadow:0 -5px 20px rgba(20,8,35,.30);
- z-index:100;
+ box-shadow:0 -5px 20px rgba(20,8,35,.35);
 }
 .navbar a{
  flex:1;
  min-width:0;
- min-height:57px;
+ height:62px;
  display:flex;
  flex-direction:column;
  align-items:center;
  justify-content:center;
  gap:5px;
  text-decoration:none;
- color:#382348;
- font-size:20px;
- font-weight:bold;
- background:linear-gradient(145deg,#fff3c5,#e7c66d,#c99a3d);
- border:1px solid #ffe8a0;
+ color:#30163f!important;
+ background:linear-gradient(145deg,#fff8d9 0%,#f5df9b 35%,#dfba5d 70%,#c99a3d 100%);
+ border:2px solid #f8df91;
  border-radius:13px;
- box-shadow:0 3px 8px rgba(0,0,0,.25),inset 0 1px 2px #fff9d9;
- transition:.2s;
+ box-shadow:0 3px 9px rgba(0,0,0,.28),inset 0 2px 3px rgba(255,255,255,.8);
+ font-size:21px;
+ font-weight:bold;
+ transition:transform .2s,box-shadow .2s;
 }
-.navbar a span{font-size:10px;color:#30163f;font-weight:bold}
+.navbar a span{
+ color:#30163f!important;
+ font-size:10px;
+ font-weight:900;
+}
 .navbar a.active{
- background:linear-gradient(145deg,#ffe9a0,#d4a640);
- border:2px solid #fff0b8;
- box-shadow:0 0 12px #e5bd5b, inset 0 1px 3px #fff;
- transform:translateY(-4px);
+ background:linear-gradient(145deg,#ffeeb1,#e4bd58,#c99731);
+ border:2px solid #fff1bd;
+ box-shadow:0 0 12px rgba(255,215,105,.8),inset 0 2px 4px rgba(255,255,255,.8);
+ transform:translateY(-5px);
 }
 .navbar a:active{transform:scale(.94)}
 
@@ -201,8 +180,8 @@ body{
  .product-card img{width:78px;height:85px}
  .product-info h3{font-size:14px}
  .start-btn{padding:9px 13px;font-size:12px}
- .navbar{padding-left:5px;padding-right:5px;gap:4px}
- .navbar a{min-height:53px}
+ .navbar{gap:4px;padding:10px 5px}
+ .navbar a{height:56px;border-radius:11px}
  .navbar a span{font-size:9px}
 }
 </style>
