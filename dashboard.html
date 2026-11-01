@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<>EliteTask Pro - Dashboard</
+<title>EliteTask Pro - Dashboard</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -57,6 +57,7 @@ body{
 }
 .welcome h2{font-size:19px;margin-bottom:5px}
 .welcome p{font-size:12px;color:#695b70}
+
 .balance-card{
  margin:-1px 15px 20px;
  background:linear-gradient(135deg,#30134e,#160b28,#452064);
@@ -65,7 +66,6 @@ body{
  border-radius:21px;
  box-shadow:0 9px 22px #24103845;
  border:1px solid #b68a45;
- position:relative;
 }
 .balance-card h3{
  font-size:14px;
@@ -92,6 +92,7 @@ body{
  font-size:13px;
  font-weight:bold;
 }
+
 .container{padding:0 15px}
 .section-title{
  font-size:18px;
@@ -124,6 +125,7 @@ body{
  font-size:21px;
 }
 .action span{font-size:11px;font-weight:bold}
+
 .stats{
  display:grid;
  grid-template-columns:repeat(2,1fr);
@@ -147,6 +149,7 @@ body{
  color:#35174e;
  font-weight:bold;
 }
+
 .progress-card{
  margin-top:17px;
  padding:18px;
@@ -173,6 +176,7 @@ body{
  background:linear-gradient(90deg,#d5aa4c,#ffe9a1);
  border-radius:20px;
 }
+
 .task-heading{
  display:flex;
  justify-content:space-between;
@@ -181,42 +185,59 @@ body{
 }
 .task-heading h2{font-size:18px}
 .task-heading span{font-size:12px;color:#97702d}
-#taskList{display:grid;gap:13px}
+
+/* GOLDEN TASK BOXES */
+#taskList{
+ display:grid;
+ grid-template-columns:1fr;
+ gap:14px;
+}
+
 .product-card{
  display:flex;
- gap:12px;
- background:white;
- padding:12px;
- border-radius:17px;
- box-shadow:0 3px 13px #24103810;
- border:1px solid #eee5f5;
+ align-items:center;
+ gap:13px;
+ padding:14px;
+ border-radius:18px;
+ background:linear-gradient(135deg,#fff9df,#f4df9b,#d5ad4e);
+ border:1.5px solid #b98a27;
+ box-shadow:0 5px 15px rgba(120,83,15,.20);
 }
+
 .product-card img{
- width:95px;
- height:100px;
+ width:90px;
+ height:95px;
  object-fit:cover;
- border-radius:12px;
- background:#eee;
+ border-radius:13px;
+ border:2px solid #c69a3b;
+ background:#fff4d1;
 }
-.product-info{flex:1}
+
+.product-info{flex:1;min-width:0}
 .product-info h3{
- font-size:15px;
- color:#29153e;
+ color:#241334;
+ font-size:16px;
+ font-weight:800;
  margin:4px 0 8px;
 }
 .product-info p{
+ color:#493516;
  font-size:12px;
- margin:6px 0;
-}
-.start-btn{
  margin-top:7px;
- border:0;
- border-radius:20px;
- padding:10px 15px;
- background:linear-gradient(135deg,#3b1958,#170c29);
- color:#f8dc8c;
- font-weight:bold;
 }
+
+.start-btn{
+ margin-top:10px;
+ background:linear-gradient(135deg,#241033,#482064);
+ color:#ffe49a;
+ border:1px solid #d2a843;
+ border-radius:25px;
+ padding:11px 18px;
+ font-weight:bold;
+ box-shadow:0 3px 8px #68451c35;
+}
+.start-btn:active{transform:scale(.97)}
+
 .withdraw-btn,.support-btn{
  width:100%;
  margin-top:13px;
@@ -232,6 +253,7 @@ body{
  background:linear-gradient(135deg,#35164f,#160b28);
  color:#f5d77d;
 }
+
 .navbar{
  position:fixed;
  bottom:0;left:0;right:0;
@@ -254,6 +276,7 @@ body{
 }
 .navbar a span{font-size:10px}
 .navbar a.active{color:#f5d77d}
+
 .popup{
  display:none;
  position:fixed;
@@ -290,10 +313,14 @@ body{
  color:#f5d77d;
  font-weight:bold;
 }
+
 @media(max-width:360px){
  .quick-actions{gap:5px}
  .action span{font-size:10px}
  .balance-card h1{font-size:29px}
+ .product-card img{width:78px;height:85px}
+ .product-info h3{font-size:14px}
+ .start-btn{padding:9px 13px;font-size:12px}
 }
 </style>
 </head>
@@ -329,19 +356,23 @@ body{
 <main class="container">
 
  <h2 class="section-title">Quick Actions</h2>
+
  <div class="quick-actions">
   <a class="action" href="recharge.html">
    <div class="ico">💳</div>
    <span>Recharge</span>
   </a>
+
   <a class="action" href="withdraw.html">
    <div class="ico">💰</div>
    <span>Withdraw</span>
   </a>
+
   <a class="action" href="orders.html">
    <div class="ico">📦</div>
    <span>My Orders</span>
   </a>
+
   <a class="action" href="support.html">
    <div class="ico">💬</div>
    <span>Support</span>
@@ -349,19 +380,23 @@ body{
  </div>
 
  <h2 class="section-title">Account Overview</h2>
+
  <div class="stats">
   <div class="box">
    <h4>Total Orders</h4>
    <span id="orders">0</span>
   </div>
+
   <div class="box">
    <h4>Total Commission</h4>
    <span id="commission">$0</span>
   </div>
+
   <div class="box">
    <h4>Today's Income</h4>
    <span id="todayIncome">$0</span>
   </div>
+
   <div class="box">
    <h4>VIP Level</h4>
    <span>VIP 1</span>
@@ -388,6 +423,7 @@ body{
  <a href="withdraw.html">
   <button class="withdraw-btn">💰 Withdraw</button>
  </a>
+
  <a href="orders.html">
   <button class="support-btn">📦 My Orders</button>
  </a>
@@ -423,18 +459,22 @@ function loadTasks(){
  let html = "";
 
  if(tasks.length === 0){
-  html = "<h3 style='text-align:center'>No Task Available</h3>";
+  html = "<h3 style='text-align:center;padding:20px;color:#735c31'>No Task Available</h3>";
  }else{
   tasks.forEach((task,index)=>{
    html += `
    <div class="product-card">
     <img src="${task.image || ''}" alt="Task">
+
     <div class="product-info">
      <h3>${task.name || 'Task'}</h3>
+
      <p>Task Price: <b>Rs ${task.reward || 0}</b></p>
-     <p style="color:#24834a">
+
+     <p>
       Commission: <b>Rs ${task.commission || 0}</b>
      </p>
+
      <button class="start-btn" onclick="openTask(${index})">
       🚀 Start Task
      </button>
@@ -442,6 +482,7 @@ function loadTasks(){
    </div>`;
   });
  }
+
  document.getElementById("taskList").innerHTML = html;
 }
 
@@ -485,6 +526,7 @@ document.getElementById("closePopup").onclick=function(){
  localStorage.setItem("orders",JSON.stringify(orders));
  document.getElementById("orders").innerText=orders.length;
  document.getElementById("popup").style.display="none";
+
  alert("✅ Task Submitted Successfully");
 };
 </script>
